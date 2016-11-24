@@ -31,6 +31,6 @@ class JWTAdapter implements JWTInterface
      */
     public function decode($jwt, $key)
     {
-        return JWT::decode($jwt, $key);
+        return JWT::decode($jwt, $key, ['HS256']);
     }
 }

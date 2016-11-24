@@ -9,18 +9,20 @@ use Ofat\SilexJWT\Exceptions\EmptySecretException;
 use Ofat\SilexJWT\Exceptions\JWTException;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Silex\Api\BootableProviderInterface;
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class JWTAuth
  * @package Ofat\SilexJWT
  */
-class JWTAuth implements ServiceProviderInterface
+class JWTAuth implements ServiceProviderInterface, BootableProviderInterface
 {
     /**
-     * @var Request
+     * @var Application\
      */
-    protected $request;
+    protected $app;
 
     /**
      * @var Token
@@ -31,7 +33,7 @@ class JWTAuth implements ServiceProviderInterface
      * Token life time in seconds
      * @var int
      */
-    protected $ttl;
+    protected $ttl = 3600;
 
     /**
      * @var Manager
@@ -46,8 +48,11 @@ class JWTAuth implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $this->request = $app['request_stack']->getCurrentRequest();
+    }
 
+    public function boot(Application $app)
+    {
+        $this->app = $app;
         $jwtProvider = isset($app['jwt.provider']) ? $app['jwt.provider'] : new JWTAdapter();
         $secret = isset($app['jwt.secret']) ? $app['jwt.secret'] : '';
 
@@ -75,7 +80,7 @@ class JWTAuth implements ServiceProviderInterface
     {
         if(! $token = $this->parseAuthHeader($header, $method))
         {
-            if (! $token = $this->request->get($query, false)) {
+            if (! $token = $this->app['request_stack']->getCurrentRequest()->get($query, false)) {
                 throw new JWTException('The token could not be parsed from the request', 400);
             }
         }
@@ -140,7 +145,8 @@ class JWTAuth implements ServiceProviderInterface
      */
     protected function parseAuthHeader($header = 'authorization', $method = 'bearer')
     {
-        $header = $this->request->headers->get($header);
+        $request = $this->app['request_stack']->getCurrentRequest();
+        $header = $request->headers->get($header);
 
         if (strpos(strtolower($header), $method) !== 0) {
             return false;

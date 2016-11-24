@@ -24,7 +24,6 @@ class Token
         (new TokenValidator)->check($value);
 
         $this->value = $value;
-        $this->parse();
     }
 
     public function __toString()

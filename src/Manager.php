@@ -36,7 +36,7 @@ class Manager
      */
     public function encode(Payload $payload)
     {
-        $token = $this->jwtProvider->encode($payload, $this->key);
+        $token = $this->jwtProvider->encode($payload->get(), $this->key);
 
         return $token;
     }
@@ -47,7 +47,7 @@ class Manager
      */
     public function decode(Token $token)
     {
-        $payloadArray = $this->jwtProvider->decode($token, $this->key);
+        $payloadArray = (array) $this->jwtProvider->decode($token, $this->key);
 
         $payload = new Payload($payloadArray);
 
