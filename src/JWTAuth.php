@@ -56,6 +56,12 @@ class JWTAuth implements ServiceProviderInterface
 
         $this->manager = new Manager($jwtProvider);
         $this->manager->setKey($secret);
+
+        $auth = $this;
+
+        $app['jwt_auth'] = function() use ($auth) {
+            return $auth;
+        };
     }
 
     /**
