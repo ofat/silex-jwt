@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Ofat\\SilexJWT": "src"
+      "Ofat\\SilexJWT\\": "src"
     }
   },
   "minimum-stability": "stable"
