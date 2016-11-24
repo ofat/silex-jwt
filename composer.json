@@ -14,8 +14,8 @@
     "firebase/php-jwt": "^4.0"
   },
   "autoload": {
-    "psr-0": {
-      "Ofat\\SilexJWT": "src/"
+    "psr-4": {
+      "Ofat\\SilexJWT": "src"
     }
   },
   "minimum-stability": "stable"
