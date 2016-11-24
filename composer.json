@@ -1,0 +1,19 @@
+{
+  "name": "ofat/silex-jwt",
+  "description": "",
+  "authors": [
+    {
+      "name": "Vitalii [ofat] Ofat",
+      "email": "ofatv22@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "Ofat\\SilexJWT\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
