@@ -1,6 +1,8 @@
 {
   "name": "ofat/silex-jwt",
-  "description": "",
+  "description": "Library for work with JWT on Silex framework",
+  "keywords": ["silex","extension","jwt"],
+  "license": "MIT",
   "authors": [
     {
       "name": "Vitalii [ofat] Ofat",
@@ -13,7 +15,7 @@
   },
   "autoload": {
     "psr-0": {
-      "Ofat\\SilexJWT\\": "src/"
+      "Ofat\\SilexJWT": "src/"
     }
   },
   "minimum-stability": "stable"
