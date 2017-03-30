@@ -62,6 +62,10 @@ class JWTAuth implements ServiceProviderInterface, BootableProviderInterface
         $this->manager = new Manager($jwtProvider);
         $this->manager->setKey($secret);
 
+        if (isset($app['jwt.ttl'])) {
+            $this->ttl = (int)$app['jwt.ttl'];
+        }
+
         $auth = $this;
 
         $app['jwt_auth'] = function() use ($auth) {
