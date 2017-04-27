@@ -62,6 +62,10 @@ class JWTAuth implements ServiceProviderInterface, BootableProviderInterface
         $this->manager = new Manager($jwtProvider);
         $this->manager->setKey($secret);
 
+        if (isset($app['jwt.ttl'])) {
+            $this->ttl = (int)$app['jwt.ttl'];
+        }
+
         $auth = $this;
 
         $app['jwt_auth'] = function() use ($auth) {
@@ -106,7 +110,7 @@ class JWTAuth implements ServiceProviderInterface, BootableProviderInterface
      * @param array $customClaims
      * @return mixed
      */
-    public function generateToken($subject, array $customClaims = [])
+    public function generateToken($subject, array $customClaims = array())
     {
         $payload = new Payload($this->makePayload($subject, $customClaims));
 
@@ -118,7 +122,7 @@ class JWTAuth implements ServiceProviderInterface, BootableProviderInterface
      * @param array $customClaims
      * @return array
      */
-    protected function makePayload($subject, array $customClaims = [])
+    protected function makePayload($subject, array $customClaims = array())
     {
         return array_merge($customClaims, [
             'sub' => $subject,

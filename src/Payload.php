@@ -14,7 +14,7 @@ class Payload implements \ArrayAccess
      *
      * @var array
      */
-    private $claims = [];
+    private $claims = array();
 
     /**
      * Build the Payload.

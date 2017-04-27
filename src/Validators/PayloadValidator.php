@@ -17,7 +17,7 @@ class PayloadValidator extends AbstractValidator
     /**
      * @var array
      */
-    protected $requiredClaims = ['iat', 'exp', 'sub'];
+    protected $requiredClaims = array('iat', 'exp', 'sub');
 
     /**
      * Run the validations on the payload array.
